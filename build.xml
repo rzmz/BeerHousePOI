@@ -60,6 +60,7 @@
 		<mkdir dir="${build.conf.dir}" />
 		<mkdir dir="${build.lib.dir}" />
 		<mkdir dir="${build.assets.dir}" />
+		<java classname="ee.ut.math.tvt.SiirisTeam.utils.UpdateVersion" classpathref="run.classpath" />
 		<copy toDir="${build.conf.dir}">
 			<fileset dir="${source.conf.dir}" />
 		</copy>
