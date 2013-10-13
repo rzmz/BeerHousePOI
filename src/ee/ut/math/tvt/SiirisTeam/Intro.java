@@ -1,10 +1,13 @@
 package ee.ut.math.tvt.SiirisTeam;
 
+import org.apache.log4j.Logger;
+
 public class Intro {
 
+	private static final Logger log = Logger.getLogger(Intro.class);
+
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		log.info("Intro main method invoked");
 	}
-
+	
 }
