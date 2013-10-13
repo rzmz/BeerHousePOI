@@ -1,20 +1,21 @@
 package ee.ut.math.tvt.SiirisTeam;
 
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-
-import ee.ut.math.tvt.SiirisTeam.utils.ImagePanel;
 
 public class IntroUI {
 	
@@ -28,19 +29,18 @@ public class IntroUI {
 		application.load(new FileInputStream("config/application.properties"));
 	}
 
-	public void displayTeamInfo(){
+	public void displayTeamInfo() throws IOException{
 		
 		JFrame raam = new JFrame("Information about the team");
-		
 		// exit the program when window is closed by the user
 		raam.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
-		raam.setSize(500, 400);
 		raam.setLocation(800, 200);
 		raam.setLayout(new GridLayout());
 		
 		
-		JPanel mainPanel = new JPanel(new GridLayout(7,1));
+		JPanel mainPanel = new JPanel();
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
 		
 		JPanel teamNamePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel teamName = new JLabel("Team name: ");
@@ -66,20 +66,24 @@ public class IntroUI {
 		
 		JPanel membersPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel membersLabel = new JLabel("Team members:");
-		JLabel prooviliikmed0 = new JLabel(application.getProperty("team.member.0"));
-		JLabel prooviliikmed1 = new JLabel(application.getProperty("team.member.1"));
-		JLabel prooviliikmed2 = new JLabel(application.getProperty("team.member.2"));
+		JLabel prooviliikmed0 = new JLabel(application.getProperty("team.members.0"));
+		JLabel prooviliikmed1 = new JLabel(application.getProperty("team.members.1"));
+		JLabel prooviliikmed2 = new JLabel(application.getProperty("team.members.2"));
 		membersPanel.add(membersLabel);
 		membersPanel.add(prooviliikmed0);
 		membersPanel.add(prooviliikmed1);
 		membersPanel.add(prooviliikmed2);
 		mainPanel.add(membersPanel);
 
-		JPanel logoPanel = new JPanel(new GridLayout(2,1));
+		JPanel logoPanel = new JPanel();
+		logoPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		JLabel logoLabel = new JLabel("Team logo:");
-		ImagePanel logo = new ImagePanel(application.getProperty("team.logo"));
+		
+		BufferedImage logoImage = ImageIO.read(new File(application.getProperty("team.logo")));
+		JLabel logoImageLabel = new JLabel(new ImageIcon(logoImage));
+		
 		logoPanel.add(logoLabel);
-		logoPanel.add(logo);
+		logoPanel.add(logoImageLabel);
 		mainPanel.add(logoPanel);		
 		
 		JPanel versionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
