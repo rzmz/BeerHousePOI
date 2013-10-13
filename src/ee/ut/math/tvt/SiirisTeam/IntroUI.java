@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,9 +31,8 @@ public class IntroUI {
 		// exit the program when window is closed by the user
 		raam.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
-		raam.setSize(300, 400);
+		raam.setSize(500, 200);
 		raam.setLocation(800, 200);
-		raam.setVisible(true);
 		raam.setLayout(new GridLayout(6,1));
 		
 		JPanel teamNamePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -61,14 +59,13 @@ public class IntroUI {
 		
 		JPanel membersPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel membersLabel = new JLabel("Team members:");
-		JLabel prooviliikmed = new JLabel(application.getProperty("team.members"));
-		JPanel namesPanel = new JPanel();
-		namesPanel.setLayout(new BoxLayout(namesPanel, BoxLayout.PAGE_AXIS));
-		namesPanel.add(new JLabel(application.getProperty("team.members.0")));
-		namesPanel.add(new JLabel(application.getProperty("team.members.1")));
-		namesPanel.add(new JLabel(application.getProperty("team.members.2")));
+		JLabel prooviliikmed0 = new JLabel(application.getProperty("team.member.0"));
+		JLabel prooviliikmed1 = new JLabel(application.getProperty("team.member.1"));
+		JLabel prooviliikmed2 = new JLabel(application.getProperty("team.member.2"));
 		membersPanel.add(membersLabel);
-		membersPanel.add(namesPanel);
+		membersPanel.add(prooviliikmed0);
+		membersPanel.add(prooviliikmed1);
+		membersPanel.add(prooviliikmed2);
 		raam.add(membersPanel);
 
 		JPanel logoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -80,10 +77,11 @@ public class IntroUI {
 		
 		JPanel versionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel versionLabel = new JLabel("Version number:");
-		JLabel proovivers = new JLabel(application.getProperty("version.number"));
+		JLabel proovivers = new JLabel(version.getProperty("build.number"));
 		versionPanel.add(versionLabel);
 		versionPanel.add(proovivers);
 		raam.add(versionPanel);
-
+		
+		raam.setVisible(true);
 	}
 }
