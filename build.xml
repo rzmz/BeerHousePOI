@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Intro" basedir="." default="jar">
+
+	<property name="source.dir" value="${basedir}/src"/>
+	<property name="build.dir" value="${basedir}/build"/>
+	<property name="build.classes.dir" value="${build.dir}/classes"/>
+	<property name="build.jar.dir" value="${build.dir}/classes"/>
+	<property name="jarFileName" value="SiirisTeam.jar"/>
+
+	<path id="test.classpath">
+		<pathelement location="${build.dir}"/>
+		<!-- configuration -->
+		<pathelement location="${conf.dir}"/>
+		<fileset dir="lib">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+
+	<path id="compile.classpath">
+		<fileset dir="lib">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+
+	<target name="clean" description="Delete all generated files">
+        <delete dir="${build.dir}"/>
+    </target>
+	
+	<target name="dist" description="Build and distribute the system">
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${build.classes.dir}"/>
+		<javac
+            srcdir="${src.dir}"
+            destdir="${build.classes.dir}"
+            debug="true"
+            debuglevel="lines,vars,source"
+            encoding="utf-8"
+            compiler="modern"
+            target="1.7"
+            source="1.7"
+			includeantruntime="false">
+			<classpath refid="compile.classpath"/>
+		</javac>
+
+	</target>
+
+	<target name="run" depends="dist" description="Run the template application">
+		<java classname="ee.ut.math.tvt.SiirisTeam.Intro" classpathref="test.classpath" fork="yes" />
+	</target>
+
+    <target name="jar" description="JARs the Task" depends="dist">
+        <jar destfile="${jarFileName}" basedir="${build.dir}"/>
+    </target>
+	
+</project>
