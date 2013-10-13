@@ -1,58 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="Intro" basedir="." default="jar">
+<project name="Intro" basedir="." default="build">
 
 	<property name="source.dir" value="${basedir}/src"/>
+	<property name="source.lib.dir" value="${basedir}/lib"/>
+	<property name="source.conf.dir" value="${basedir}/config"/>
+	<property name="source.assets.dir" value="${basedir}/assets"/>
+	
 	<property name="build.dir" value="${basedir}/build"/>
 	<property name="build.classes.dir" value="${build.dir}/classes"/>
-	<property name="build.jar.dir" value="${build.dir}/classes"/>
+	<property name="build.lib.dir" value="${build.classes.dir}/lib"/>
+	<property name="build.conf.dir" value="${build.classes.dir}/config"/>
+	<property name="build.assets.dir" value="${build.classes.dir}/assets"/>
+	<property name="build.jar.dir" value="${build.dir}/jar"/>
 	<property name="jarFileName" value="SiirisTeam.jar"/>
-	<property name="conf.dir" value="${basedir}/config"/>
 
-	<path id="test.classpath">
+	<path id="run.classpath">
 		<pathelement location="${build.classes.dir}"/>
 		<!-- configuration -->
-		<pathelement location="${conf.dir}"/>
-		<fileset dir="lib">
+		<pathelement location="${source.conf.dir}"/>
+		<fileset dir="${source.lib.dir}">
 			<include name="*.jar"/>
 		</fileset>
 	</path>
 
 	<path id="compile.classpath">
-		<fileset dir="lib">
+		<fileset dir="${source.lib.dir}">
 			<include name="*.jar"/>
 		</fileset>
 	</path>
 
-	<target name="clean" description="Delete all generated files">
+	<target name="clean" description="removing the files created during the previous build">
         <delete dir="${build.dir}"/>
     </target>
-	
-	<target name="dist" description="Build and distribute the system">
-		<mkdir dir="${build.dir}"/>
-		<mkdir dir="${build.classes.dir}"/>
+
+	<target name="build" description="compiling the source code and sets log4j and other files in the right places">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${build.classes.dir}"/>
 		<javac
-            srcdir="${source.dir}"
-            destdir="${build.classes.dir}"
-            debug="true"
-            debuglevel="lines,vars,source"
-            encoding="utf-8"
-            compiler="modern"
-            target="1.7"
-            source="1.7"
+			srcdir="${source.dir}"
+			destdir="${build.classes.dir}"
+			debug="true"
+			debuglevel="lines,vars,source"
+			encoding="utf-8"
+			compiler="modern"
+			target="1.7"
+			source="1.7"
 			includeantruntime="false">
 			<classpath refid="compile.classpath"/>
 		</javac>
+    </target>
 
+	<target name="run" depends="build" description="executes your application via class Intro">
+		<java classname="ee.ut.math.tvt.SiirisTeam.Intro" classpathref="run.classpath" fork="yes" />
 	</target>
 
-	<target name="run" depends="dist" description="Run the template application">
-		<java classname="ee.ut.math.tvt.SiirisTeam.Intro" classpathref="test.classpath" fork="yes">
+	<target name="dist" depends="build" description="creates in the folder build/jar a separate JAR file, that has all your created classes, two property files and other components that are required for running your intro window. The name of the JAR file must be your team name. In addition, with every new JAR file build, your build.revision.number must increase automatically by one and as a result build.number last part must also increase by one.">
+		<mkdir dir="${build.jar.dir}"/>
+		<mkdir dir="${build.conf.dir}" />
+		<mkdir dir="${build.lib.dir}" />
+		<mkdir dir="${build.assets.dir}" />
+		<copy toDir="${build.conf.dir}">
+			<fileset dir="${source.conf.dir}" />
+		</copy>
+		<copy toDir="${build.assets.dir}">
+			<fileset dir="${source.assets.dir}" />
+		</copy>
+		<copy toDir="${build.lib.dir}">
+			<fileset dir="${source.lib.dir}" />
+		</copy>
+        <jar destfile="${build.jar.dir}/${jarFileName}" basedir="${build.classes.dir}">
+        	<zipgroupfileset dir="${build.lib.dir}" includes="**/*.jar" />
+        </jar>
+	</target>
+
+	<target name="jrun" depends="dist" description="opens your intro window using the JAR file created by your dist ANT target">
+		<java fork="true" classname="ee.ut.math.tvt.SiirisTeam.Intro" failonerror="true">
+			<classpath>
+				<pathelement path="${build.jar.dir}/${jarFileName}" />
+			</classpath>	
 		</java>
 	</target>
-
-    <target name="jar" description="JARs the Task" depends="dist">
-        <jar destfile="${jarFileName}" basedir="${build.dir}"/>
-    </target>
 	
 </project>
