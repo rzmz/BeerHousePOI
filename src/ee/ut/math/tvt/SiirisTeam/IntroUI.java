@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,7 +32,7 @@ public class IntroUI {
 		// exit the program when window is closed by the user
 		raam.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
-		raam.setSize(500, 200);
+		raam.setSize(300, 400);
 		raam.setLocation(800, 200);
 		raam.setVisible(true);
 		raam.setLayout(new GridLayout(6,1));
@@ -61,8 +62,13 @@ public class IntroUI {
 		JPanel membersPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel membersLabel = new JLabel("Team members:");
 		JLabel prooviliikmed = new JLabel(application.getProperty("team.members"));
+		JPanel namesPanel = new JPanel();
+		namesPanel.setLayout(new BoxLayout(namesPanel, BoxLayout.PAGE_AXIS));
+		namesPanel.add(new JLabel(application.getProperty("team.members.0")));
+		namesPanel.add(new JLabel(application.getProperty("team.members.1")));
+		namesPanel.add(new JLabel(application.getProperty("team.members.2")));
 		membersPanel.add(membersLabel);
-		membersPanel.add(prooviliikmed);
+		membersPanel.add(namesPanel);
 		raam.add(membersPanel);
 
 		JPanel logoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
