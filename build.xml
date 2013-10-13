@@ -70,6 +70,8 @@
 			<fileset dir="${source.lib.dir}" />
 		</copy>
         <jar destfile="${build.jar.dir}/${jarFileName}" basedir="${build.classes.dir}">
+        	<!-- include log4j config and jar files --> 
+        	<fileset dir="${build.conf.dir}" includes="**/*.properties" />
         	<zipgroupfileset dir="${build.lib.dir}" includes="**/*.jar" />
         </jar>
 	</target>
