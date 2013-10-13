@@ -7,6 +7,7 @@
 	<property name="build.classes.dir" value="${build.dir}/classes"/>
 	<property name="build.jar.dir" value="${build.dir}/classes"/>
 	<property name="jarFileName" value="SiirisTeam.jar"/>
+	<property name="conf.dir" value="${basedir}/config"/>
 
 	<path id="test.classpath">
 		<pathelement location="${build.classes.dir}"/>
