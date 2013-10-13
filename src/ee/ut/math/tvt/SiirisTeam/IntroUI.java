@@ -20,8 +20,8 @@ public class IntroUI {
 	public IntroUI() throws FileNotFoundException, IOException {
 		version = new Properties();
 		application = new Properties();
-		version.load(new FileInputStream("version.properties"));
-		application.load(new FileInputStream("application.properties"));
+		version.load(new FileInputStream("config/version.properties"));
+		application.load(new FileInputStream("config/application.properties"));
 	}
 
 	public void displayTeamInfo(){
@@ -53,7 +53,7 @@ public class IntroUI {
 		
 		JPanel emailPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel emailLabel = new JLabel("Team leader email:");
-		JLabel proovimeil = new JLabel("xxx");
+		JLabel proovimeil = new JLabel(application.getProperty("team.leader_email"));
 		emailPanel.add(emailLabel);
 		emailPanel.add(proovimeil);
 		raam.add(emailPanel);
