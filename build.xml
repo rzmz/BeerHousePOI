@@ -31,7 +31,7 @@
 		<mkdir dir="${build.dir}"/>
 		<mkdir dir="${build.classes.dir}"/>
 		<javac
-            srcdir="${src.dir}"
+            srcdir="${source.dir}"
             destdir="${build.classes.dir}"
             debug="true"
             debuglevel="lines,vars,source"
@@ -46,7 +46,8 @@
 	</target>
 
 	<target name="run" depends="dist" description="Run the template application">
-		<java classname="ee.ut.math.tvt.SiirisTeam.Intro" classpathref="test.classpath" fork="yes" />
+		<java classname="ee.ut.math.tvt.SiirisTeam.Intro" classpathref="test.classpath" fork="yes">
+		</java>
 	</target>
 
     <target name="jar" description="JARs the Task" depends="dist">
