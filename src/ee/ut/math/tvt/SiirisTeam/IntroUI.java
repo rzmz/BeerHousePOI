@@ -17,26 +17,28 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-public class IntroUI {
+public class IntroUI extends JFrame {
 	
+	private static final long serialVersionUID = 1L;
 	public Properties version;
 	public Properties application;
 	
 	public IntroUI() throws FileNotFoundException, IOException {
+		super("Information about the team");
 		version = new Properties();
 		application = new Properties();
 		version.load(new FileInputStream("config/version.properties"));
 		application.load(new FileInputStream("config/application.properties"));
+		displayTeamInfo();
 	}
 
-	public void displayTeamInfo() throws IOException{
+	private void displayTeamInfo() throws IOException{
 		
-		JFrame raam = new JFrame("Information about the team");
 		// exit the program when window is closed by the user
-		raam.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
-		raam.setLocation(800, 200);
-		raam.setLayout(new GridLayout());
+		setLocation(800, 200);
+		setLayout(new GridLayout());
 		
 		
 		JPanel mainPanel = new JPanel();
@@ -93,9 +95,8 @@ public class IntroUI {
 		versionPanel.add(proovivers);
 		mainPanel.add(versionPanel);
 		
-		raam.add(mainPanel);
+		add(mainPanel);
 		
-		raam.pack();
-		raam.setVisible(true);
+		pack();
 	}
 }
