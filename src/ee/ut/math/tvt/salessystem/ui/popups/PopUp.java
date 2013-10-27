@@ -41,7 +41,7 @@ public class PopUp {
 	public void draw(){
 		JFrame popup = new JFrame();
 		popup.setSize(400, 200);
-		popup.getComponentAt(800, 800);
+		popup.setLocationRelativeTo(null);
 		JPanel panel = new JPanel();
 		JTable table = new JTable(createModel());
 		JTableHeader header = table.getTableHeader();
