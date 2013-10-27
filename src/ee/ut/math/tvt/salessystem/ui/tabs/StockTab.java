@@ -9,11 +9,14 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -60,42 +63,74 @@ public class StockTab {
 	}
 
 	// warehouse menu
+	private GridBagConstraints getDialogPaneConstraints() {
+        GridBagConstraints gc = new GridBagConstraints();
+
+        gc.anchor = GridBagConstraints.WEST;
+        gc.weightx = 0.2;
+        gc.weighty = 0d;
+        gc.gridwidth = GridBagConstraints.REMAINDER;
+        gc.fill = GridBagConstraints.NONE;
+
+        return gc;
+    }
+	
 	private Component drawStockMenuPane() {
 		JPanel panel = new JPanel();
 
-		GridBagConstraints gc = new GridBagConstraints();
-		GridBagLayout gb = new GridBagLayout();
-
-		panel.setLayout(gb);
-
-//		gc.anchor = GridBagConstraints.NORTHWEST;
-//		gc.weightx = 0;
-
+		panel.setLayout(new GridBagLayout());
+		
+		// Create the panel
+        JPanel panel2 = new JPanel();
+        panel2.setLayout(new GridLayout(6, 2));
+        panel2.setBorder(BorderFactory.createTitledBorder("Add product"));
+        
+        // Initialize the textfields
 		barCodeField = new JTextField();
 		nameField = new JTextField();
 		descField = new JTextField();
 		priceField = new JTextField();
 		quantityField = new JTextField();
-		panel.add(barCodeField);
-		panel.add(nameField);
-		panel.add(priceField);
-		panel.add(quantityField);
+		
+		// == Add components to the panel
 
+        // - bar code
+        panel2.add(new JLabel("Bar code:            "));
+        panel2.add(barCodeField);
+        
+        // - name
+        panel2.add(new JLabel("Name: "));
+        panel2.add(nameField);
+        
+        // - description
+        panel2.add(new JLabel("Description: "));
+        panel2.add(descField);
+        
+        // - price
+        panel2.add(new JLabel("Price: "));
+        panel2.add(priceField);
+        
+        // - amount
+        panel2.add(new JLabel("Amount: "));
+        panel2.add(quantityField);
+        
 		addItem = new JButton("Add");
 		addItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
 				model.getWarehouseTableModel().addItem(
 						new StockItem(Long.parseLong(barCodeField.getText()),
 								nameField.getText(), descField.getText(),
-								Double.parseDouble(priceField.getText()),
+								(Double.parseDouble(priceField.getText())),
 								Integer.parseInt(quantityField.getText())));
+				} catch (Exception q) {
+					JOptionPane.showMessageDialog(null, "Please insert valid data", "Error", JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
 
-		gc.gridwidth = GridBagConstraints.RELATIVE;
-		gc.weightx = 1.0;
-		panel.add(addItem, gc);
-
+		panel2.add(addItem);
+		panel.add(panel2, getDialogPaneConstraints());
 		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		return panel;
 	}
