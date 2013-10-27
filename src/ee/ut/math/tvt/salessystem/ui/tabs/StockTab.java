@@ -119,7 +119,7 @@ public class StockTab {
 				model.getWarehouseTableModel().addItem(
 						new StockItem(Long.parseLong(barCodeField.getText()),
 								nameField.getText(), descField.getText(),
-								(Double.parseDouble(priceField.getText())),
+								(double)Math.round(Double.parseDouble(priceField.getText())*10)/10,
 								Integer.parseInt(quantityField.getText())));
 				} catch (Exception q) {
 					JOptionPane.showMessageDialog(null, "Please insert valid data", "Error", JOptionPane.WARNING_MESSAGE);

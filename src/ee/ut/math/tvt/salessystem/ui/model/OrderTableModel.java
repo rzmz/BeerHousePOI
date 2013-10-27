@@ -26,23 +26,6 @@ public class OrderTableModel extends SalesSystemTableModel <Order> {
 		// TODO Auto-generated method stub
 	}
 	
-	//vajalik konsooli jaoks
-	public String toString(){
-		final StringBuffer buffer = new StringBuffer();
-		
-		for(int i = 0; i < headers.length; i++){
-			buffer.append(headers[i] + "\t");
-		buffer.append("\n");
-		
-		for(Order order : rows){
-			buffer.append(order.getId() + "\t");
-			buffer.append(order.returnDateAndTime() + "\t");
-		}
-		
-		}
-		return "a";
-		
-	}
 	
 	public void addOrder(Order order){
 		rows.add(order);
