@@ -47,4 +47,15 @@ public class SalesSystemModel {
         return currentPurchaseTableModel;
     }
     
+   
+	public OrderTableModel getOrderTableModel() {
+		return orderTableModel;
+	}
+
+	public void setOrderTableModel(OrderTableModel orderTableModel) {
+		this.orderTableModel = orderTableModel;
+	}
+    
+    
+    
 }
