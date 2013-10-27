@@ -1,14 +1,12 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 import ee.ut.math.tvt.salessystem.domain.data.Order;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
