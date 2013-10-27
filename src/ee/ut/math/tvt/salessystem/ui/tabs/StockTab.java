@@ -1,12 +1,7 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
-import ee.ut.math.tvt.salessystem.domain.data.StockItem;
-import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
-import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
-
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -22,6 +17,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.JTableHeader;
+
+import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 
 public class StockTab {
 
@@ -121,7 +119,7 @@ public class StockTab {
 				model.getWarehouseTableModel().addItem(
 						new StockItem(Long.parseLong(barCodeField.getText()),
 								nameField.getText(), descField.getText(),
-								(Double.parseDouble(priceField.getText())),
+								(double)Math.round(Double.parseDouble(priceField.getText())*10)/10,
 								Integer.parseInt(quantityField.getText())));
 				} catch (Exception q) {
 					JOptionPane.showMessageDialog(null, "Please insert valid data", "Error", JOptionPane.WARNING_MESSAGE);

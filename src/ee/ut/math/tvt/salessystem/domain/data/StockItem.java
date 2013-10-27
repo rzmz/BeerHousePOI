@@ -15,6 +15,7 @@ public class StockItem implements Cloneable, DisplayableItem {
     
     private int quantity;
 
+
     /**
      * Constucts new <code>StockItem</code> with the specified values.
      * @param id barcode id
@@ -82,6 +83,7 @@ public class StockItem implements Cloneable, DisplayableItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+    
 
     public String toString() {
         return id + " " + name + " " + description + " " + price;
