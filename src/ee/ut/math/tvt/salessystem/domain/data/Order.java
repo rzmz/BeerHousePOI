@@ -60,7 +60,7 @@ public class Order implements Cloneable, DisplayableItem {
 	@Override
 	public Long getId() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.id;
 	}
 
 }

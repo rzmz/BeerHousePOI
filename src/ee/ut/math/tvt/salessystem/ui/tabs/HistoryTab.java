@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import ee.ut.math.tvt.salessystem.domain.data.Order;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+import ee.ut.math.tvt.salessystem.ui.model.OrderTableModel;
 
 /**
  * Encapsulates everything that has to do with the purchase tab (the tab
@@ -63,13 +64,17 @@ public class HistoryTab extends JPanel {
     	orders.add(order1);
     	orders.add(order2);
     	
+    	OrderTableModel otm = new OrderTableModel();
+    	otm.addOrder(order1);
+    	otm.addOrder(order2);
+    	
         JPanel panel = new JPanel();
         
         String [] ColumnNames = {"Order", "Date and time of order", "Total sum of order"};
     	
     	Object [][] data = {{"Order1", order1.returnDateAndTime(), order1.calculateTotalSum()}, {"Order2", order2.returnDateAndTime(), order2.calculateTotalSum()}, };
     	
-    	JTable table = new JTable(data, ColumnNames);
+    	JTable table = new JTable(otm);
         
     	panel.add(table);
         // TODO - Sales history tabel
