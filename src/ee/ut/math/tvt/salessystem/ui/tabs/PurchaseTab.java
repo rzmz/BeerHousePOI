@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import org.apache.log4j.Logger;
 
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
+import ee.ut.math.tvt.salessystem.domain.data.Order;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
@@ -195,6 +196,11 @@ public class PurchaseTab {
 									+ model.getCurrentPurchaseTableModel());
 
 							domainController.submitCurrentPurchase(itemsInCart);
+
+							// todo: maybe not the best approach but we have to live with that for now
+							Order order = new Order(Order.getNextId(), itemsInCart);
+							model.getOrderTableModel().addOrder(order);
+							model.getOrderTableModel().fireTableDataChanged();							
 							endSale();
 							model.getCurrentPurchaseTableModel().clear();
 							confirmPaymentFrame.dispose();

@@ -9,6 +9,8 @@ import java.util.List;
 
 public class Order implements Cloneable, DisplayableItem {
 	
+	static long currentId = 0;
+	
 	private Long id;
 	private List<SoldItem> soldItems ;
 	private Date dateAndTime;
@@ -51,6 +53,11 @@ public class Order implements Cloneable, DisplayableItem {
 			sum = sum + item.getSum();
 		}
 		return sum;
+	}
+	
+	// todo: should return something else when connected to a database
+	public static long getNextId() {
+		return ++currentId;
 	}
 	
 	public String returnDateAndTime(){

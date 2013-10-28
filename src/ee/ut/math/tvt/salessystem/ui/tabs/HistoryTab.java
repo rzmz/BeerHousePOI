@@ -56,11 +56,10 @@ public class HistoryTab extends JPanel  {
     	soldItems2.add(c1);
     	soldItems2.add(d1);
     	
-    	Order order1 = new Order((long)123, soldItems1);
-    	Order order2 = new Order((long)124, soldItems2);
+    	Order order1 = new Order(Order.getNextId(), soldItems1);
+    	Order order2 = new Order(Order.getNextId(), soldItems2);
 		model.getOrderTableModel().addOrder(order1);
 		model.getOrderTableModel().addOrder(order2);
-		
 	}
 	
     public HistoryTab() {
