@@ -139,6 +139,7 @@ public class PurchaseItemPanel extends JPanel {
             priceField.setText(String.valueOf(stockItem.getPrice()));
             quantityField.setText("1");
         } else {
+        	System.out.println("fillDialogFields reset");
             reset();
         }
     }

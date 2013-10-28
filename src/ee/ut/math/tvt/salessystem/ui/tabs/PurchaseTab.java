@@ -1,14 +1,5 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
-import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
-import ee.ut.math.tvt.salessystem.domain.data.StockItem;
-import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
-import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
-import ee.ut.math.tvt.salessystem.ui.model.PurchaseInfoTableModel;
-import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
-import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
-import ee.ut.math.tvt.salessystem.ui.panels.PurchaseItemPanel;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -18,9 +9,19 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
+
+import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
+import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
+import ee.ut.math.tvt.salessystem.ui.model.PurchaseInfoTableModel;
+import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
+import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
+import ee.ut.math.tvt.salessystem.ui.panels.PurchaseItemPanel;
+import ee.ut.math.tvt.salessystem.ui.popups.ConfirmPaymentFrame;
 
 /**
  * Encapsulates everything that has to do with the purchase tab (the tab
@@ -182,11 +183,33 @@ public class PurchaseTab {
 		log.info("Sale complete");
 		try {
 			log.debug("Contents of the current basket:\n" + model.getCurrentPurchaseTableModel());
+			
+			final ConfirmPaymentFrame confirmPaymentFrame = new ConfirmPaymentFrame(0.0);
+			confirmPaymentFrame.setVisible(true);
+			
+			confirmPaymentFrame.getConfirmButton().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("confirmed");
+				}
+				
+			});;
+
+			confirmPaymentFrame.getCancelButton().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					confirmPaymentFrame.dispose();
+				}
+				
+			});
+						
 			domainController.submitCurrentPurchase(
 					model.getCurrentPurchaseTableModel().getTableRows()
 					);
-			endSale();
-			model.getCurrentPurchaseTableModel().clear();
+//			endSale();
+//			model.getCurrentPurchaseTableModel().clear();
 		} catch (VerificationFailedException e1) {
 			log.error(e1.getMessage());
 		}
