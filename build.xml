@@ -127,5 +127,21 @@
 			</args>
 		</git>
 	</target>
+	
+	<target name="git_tag">
+	    <input message="Enter Tag name" addproperty="tagname"/>
+	    <input message="Enter Tag comment" addproperty="tagcomment"/>
+	    <git command="tag">
+	        <args>
+	           <arg value="-a ${tagname}"/>
+	           <arg value="-m ${tagcomment}"/> 
+	        </args>
+	    </git>
+	    <git command="push">
+	        <args>
+	            <arg value="--tags" />
+	        </args>
+	    </git>
+	</target>
 
 </project>
