@@ -136,7 +136,7 @@
 		<echo message="Executing git tag -a ${tag-name} -m ${tag-comment}" />
 		<!-- weird, but this cannot be done via macrodef as above -->
 		<exec executable="git" failonerror="true">
-		    <arg line="tag -a ${tag-name} -m ${tag-comment}" />
+		    <arg line="tag -a ${tag-name} -m '${tag-comment}'" />
 		</exec>
 
 		<git command="push">
