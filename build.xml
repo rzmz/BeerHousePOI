@@ -101,11 +101,11 @@
 			<echo message="git @{command}" />
 			<exec executable="git" dir="@{dir}">
 				<arg value="@{command}" />
-				<args/>
+				<args />
 			</exec>
 		</sequential>
 	</macrodef>
-	
+
 	<target name="git_commit">
 		<input message="Commit message" addproperty="commit-message"></input>
 		<echo message="Committing all changes with message ${commit-message}" />
@@ -123,25 +123,27 @@
 		<input message="Enter password" addproperty="password" />
 		<git command="push">
 			<args>
-			    <arg value="https://${username}:${password}@github.com/${username}/BeerHousePOS/" />
+				<arg
+					value="https://${username}:${password}@github.com/${username}/BeerHousePOS/" />
 			</args>
 		</git>
 	</target>
-	
+
 	<target name="git_tag">
-	    <input message="Enter Tag name" addproperty="tagname"/>
-	    <input message="Enter Tag comment" addproperty="tagcomment"/>
-	    <git command="tag">
-	        <args>
-	           <arg value="-a ${tagname}"/>
-	           <arg value="-m ${tagcomment}"/> 
-	        </args>
-	    </git>
-	    <git command="push">
-	        <args>
-	            <arg value="--tags" />
-	        </args>
-	    </git>
+		<input message="Enter Tag name" addproperty="tag-name"></input>
+		<input message="Enter Tag comment" addproperty="tag-comment"></input>
+		
+		<echo message="Executing git tag -a ${tag-name} -m ${tag-comment}" />
+		<!-- weird, but this cannot be done via macrodef as above -->
+		<exec executable="git" failonerror="true">
+		    <arg line="tag -a ${tag-name} -m ${tag-comment}" />
+		</exec>
+
+		<git command="push">
+			<args>
+				<arg value="--tags" />
+			</args>
+		</git>
 	</target>
 
 </project>
