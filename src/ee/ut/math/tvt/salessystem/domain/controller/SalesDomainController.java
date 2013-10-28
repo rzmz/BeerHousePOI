@@ -33,7 +33,7 @@ public interface SalesDomainController {
      * 
      * @throws VerificationFailedException
      */
-    public void cancelCurrentPurchase() throws VerificationFailedException;;
+    public void cancelCurrentPurchase() throws VerificationFailedException;
 
     /**
      * Commit business transaction - purchsae of goods.
