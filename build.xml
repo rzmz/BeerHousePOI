@@ -93,4 +93,39 @@
 		</java>
 	</target>
 
+	<macrodef name="git">
+		<attribute name="command" />
+		<attribute name="dir" default="" />
+		<element name="args" optional="true" />
+		<sequential>
+			<echo message="git @{command}" />
+			<exec executable="git" dir="@{dir}">
+				<arg value="@{command}" />
+				<args/>
+			</exec>
+		</sequential>
+	</macrodef>
+	
+	<target name="git_commit">
+		<input message="Commit message" addproperty="commit-message"></input>
+		<echo message="Committing all changes with message ${commit-message}" />
+		<git command="add">
+			<args>
+				<arg value="." />
+			</args>
+		</git>
+		<git command="commit">
+			<args>
+				<arg value="-am ${commit-message}" />
+			</args>
+		</git>
+		<input message="Enter user name" addproperty="username" />
+		<input message="Enter password" addproperty="password" />
+		<git command="push">
+			<args>
+			    <arg value="https://${username}:${password}@github.com/${username}/BeerHousePOS/" />
+			</args>
+		</git>
+	</target>
+
 </project>
