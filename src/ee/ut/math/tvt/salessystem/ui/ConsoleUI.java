@@ -104,15 +104,21 @@ public class ConsoleUI {
 	private void processCommand(String command) {
 		String[] c = command.split(" ");
 
-		if (c[0].equals("h"))
-			printUsage();
-		else if (c[0].equals("q"))
+		if (c[0].equals("h")) {
+			printUsage();			
+		}
+		else if (c[0].equals("q")) {
+			// end the database session before exit
+			dc.endSession();
 			System.exit(0);
-		else if (c[0].equals("w"))
-			showStock(warehouse);
-		else if (c[0].equals("c"))
-			showStock(cart);
-		else if (c[0].equals("p"))
+		}
+		else if (c[0].equals("w")) {
+			showStock(warehouse);			
+		}
+		else if (c[0].equals("c")) {
+			showStock(cart);			
+		}
+		else if (c[0].equals("p")) {
 			try {
 			    List<SoldItem> soldItems = new ArrayList<SoldItem>();
 			    for(StockItem stockItem : cart) {
@@ -123,13 +129,15 @@ public class ConsoleUI {
 			} catch (VerificationFailedException e) {
 				log.error(e.getMessage());
 			}
-		else if (c[0].equals("r")) 
+		}
+		else if (c[0].equals("r")) {
 			try {
 				dc.cancelCurrentPurchase();
 				cart.clear();
 			} catch (VerificationFailedException e) {
 				log.error(e.getMessage());
-			}
+			}			
+		}
 		else if (c[0].equals("a") && c.length == 3) {
 			int idx = Integer.parseInt(c[1]);
 			int amount = Integer.parseInt(c[2]);
