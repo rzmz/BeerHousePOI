@@ -15,6 +15,15 @@
 	<property name="build.jar.dir" value="${build.dir}/jar" />
 	<property name="jarFileName" value="SiirisTeam.jar" />
 
+	<property name="lib.dir" value="${basedir}/lib" />
+
+	<!-- database variables -->
+	<property name="data.dir" value="${basedir}/data" />
+	<property name="db.file" value="${data.dir}/POSdb" />
+	<property name="db.alias" value="POS" />
+	<property name="db.url" value="jdbc:hsqldb:hsql://localhost/POS" />
+	<property name="lib.hibernate.dir" value="${lib.dir}/hibernate" />
+
 	<path id="run.classpath">
 		<pathelement location="${build.classes.dir}" />
 		<!-- configuration -->
@@ -22,12 +31,22 @@
 		<fileset dir="${source.lib.dir}">
 			<include name="*.jar" />
 		</fileset>
+
+		<fileset dir="${lib.hibernate.dir}">
+			<include name="*.jar" />
+		</fileset>
+
 	</path>
 
 	<path id="compile.classpath">
 		<fileset dir="${source.lib.dir}">
 			<include name="*.jar" />
 		</fileset>
+
+		<fileset dir="${lib.hibernate.dir}">
+			<include name="*.jar" />
+		</fileset>
+
 	</path>
 
 	<target name="clean"
@@ -132,11 +151,11 @@
 	<target name="git_tag">
 		<input message="Enter Tag name" addproperty="tag-name"></input>
 		<input message="Enter Tag comment" addproperty="tag-comment"></input>
-		
+
 		<echo message="Executing git tag -a ${tag-name} -m ${tag-comment}" />
 		<!-- weird, but this cannot be done via macrodef as above -->
 		<exec executable="git" failonerror="true">
-		    <arg line="tag -a ${tag-name} -m '${tag-comment}'" />
+			<arg line="tag -a ${tag-name} -m '${tag-comment}'" />
 		</exec>
 
 		<git command="push">
@@ -145,5 +164,20 @@
 			</args>
 		</git>
 	</target>
+
+	<target name="dbmanager" description="Start the HSQLDB manager">
+		<java classname="org.hsqldb.util.DatabaseManagerSwing"
+			classpathref="run.classpath" fork="yes">
+			<arg line="--user sa --url ${db.url}" />
+		</java>
+	</target>
+
+	<target name="startdb" description="Start the HSQLDB with the default params">
+		<java classname="org.hsqldb.Server" classpathref="run.classpath"
+			fork="yes">
+			<arg line="-database.0 '${db.file}' -dbname.0 '${db.alias}'" />
+		</java>
+	</target>
+
 
 </project>
