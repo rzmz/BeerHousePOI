@@ -18,12 +18,17 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.JTableHeader;
 
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
+import ee.ut.math.tvt.salessystem.util.HibernateUtil;
 
 public class StockTab {
 
-	private JTextField barCodeField;
+	private static final Logger log = Logger.getLogger(StockTab.class);
+
 	private JTextField quantityField;
 	private JTextField nameField;
 	private JTextField priceField;
@@ -62,67 +67,85 @@ public class StockTab {
 
 	// warehouse menu
 	private GridBagConstraints getDialogPaneConstraints() {
-        GridBagConstraints gc = new GridBagConstraints();
+		GridBagConstraints gc = new GridBagConstraints();
 
-        gc.anchor = GridBagConstraints.WEST;
-        gc.weightx = 0.2;
-        gc.weighty = 0d;
-        gc.gridwidth = GridBagConstraints.REMAINDER;
-        gc.fill = GridBagConstraints.NONE;
+		gc.anchor = GridBagConstraints.WEST;
+		gc.weightx = 0.2;
+		gc.weighty = 0d;
+		gc.gridwidth = GridBagConstraints.REMAINDER;
+		gc.fill = GridBagConstraints.NONE;
 
-        return gc;
-    }
-	
+		return gc;
+	}
+
 	private Component drawStockMenuPane() {
 		JPanel panel = new JPanel();
 
 		panel.setLayout(new GridBagLayout());
-		
+
 		// Create the panel
-        JPanel panel2 = new JPanel();
-        panel2.setLayout(new GridLayout(6, 2));
-        panel2.setBorder(BorderFactory.createTitledBorder("Add product"));
-        
-        // Initialize the textfields
-		barCodeField = new JTextField();
+		JPanel panel2 = new JPanel();
+		panel2.setLayout(new GridLayout(6, 2));
+		panel2.setBorder(BorderFactory.createTitledBorder("Add product"));
+
+		// Initialize the textfields
 		nameField = new JTextField();
 		descField = new JTextField();
 		priceField = new JTextField();
 		quantityField = new JTextField();
-		
+
 		// == Add components to the panel
 
-        // - bar code
-        panel2.add(new JLabel("Bar code:            "));
-        panel2.add(barCodeField);
-        
-        // - name
-        panel2.add(new JLabel("Name: "));
-        panel2.add(nameField);
-        
-        // - description
-        panel2.add(new JLabel("Description: "));
-        panel2.add(descField);
-        
-        // - price
-        panel2.add(new JLabel("Price: "));
-        panel2.add(priceField);
-        
-        // - amount
-        panel2.add(new JLabel("Amount: "));
-        panel2.add(quantityField);
-        
+		// - name
+		panel2.add(new JLabel("Name: "));
+		panel2.add(nameField);
+
+		// - description
+		panel2.add(new JLabel("Description: "));
+		panel2.add(descField);
+
+		// - price
+		panel2.add(new JLabel("Price: "));
+		panel2.add(priceField);
+
+		// - amount
+		panel2.add(new JLabel("Amount: "));
+		panel2.add(quantityField);
+
 		addItem = new JButton("Add");
 		addItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				StockItem item = new StockItem();
+				Boolean isError = true;
+
 				try {
-				model.getWarehouseTableModel().addItem(
-						new StockItem(Long.parseLong(barCodeField.getText()),
-								nameField.getText(), descField.getText(),
-								(double)Math.round(Double.parseDouble(priceField.getText())*10)/10,
-								Integer.parseInt(quantityField.getText())));
-				} catch (Exception q) {
-					JOptionPane.showMessageDialog(null, "Please insert valid data", "Error", JOptionPane.WARNING_MESSAGE);
+					item.setName(nameField.getText());
+					item.setDescription(descField.getText());
+					item.setPrice((double) Math.round(Double
+							.parseDouble(priceField.getText()) * 10) / 10);
+					item.setQuantity(Integer.parseInt(quantityField.getText()));
+					isError = false;
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null,
+							"Please insert valid data", "Error",
+							JOptionPane.WARNING_MESSAGE);
+				}
+
+				if (!isError) {
+					try {
+						Session session = HibernateUtil.currentSession();
+						session.beginTransaction();
+						session.persist(item);
+						session.getTransaction().commit();
+						model.getWarehouseTableModel().addItem(item);
+					} catch (Throwable t) {
+						log.error("Could not save item to the database");
+						t.printStackTrace();
+						JOptionPane.showMessageDialog(null,
+								"Database transaction failed", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		});

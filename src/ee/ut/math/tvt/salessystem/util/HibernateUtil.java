@@ -9,6 +9,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 public class HibernateUtil {
+
 	private static final Logger log = Logger.getLogger(HibernateUtil.class);
 
 	private static ServiceRegistry serviceRegistry;
