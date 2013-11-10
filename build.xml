@@ -165,17 +165,30 @@
 		</git>
 	</target>
 
-	<target name="dbmanager" description="Start the HSQLDB manager">
-		<java classname="org.hsqldb.util.DatabaseManagerSwing"
-			classpathref="run.classpath" fork="yes">
-			<arg line="--user sa --url ${db.url}" />
-		</java>
-	</target>
-
 	<target name="startdb" description="Start the HSQLDB with the default params">
 		<java classname="org.hsqldb.Server" classpathref="run.classpath"
 			fork="yes">
 			<arg line="-database.0 '${db.file}' -dbname.0 '${db.alias}'" />
+		</java>
+	</target>
+
+	<target name="resetdata" description="WARNING: removes the old items completely.">
+	    
+	    <sql classpathref="run.classpath" driver="org.hsqldb.jdbcDriver" url="${db.url}" userid="sa" password="" autocommit="true" src="${data.dir}/additems.sql" />
+	        
+	</target>
+	
+	<target name="stopdb"
+		description="Stop the HSQLDB database before start in case it is already running">
+		<sql classpathref="run.classpath" driver="org.hsqldb.jdbcDriver"
+			url="${db.url}" userid="sa" password="" autocommit="true" failOnConnectionError="false">SHUTDOWN
+		</sql>
+	</target>
+
+	<target name="dbmanager" description="Start the HSQLDB manager">
+		<java classname="org.hsqldb.util.DatabaseManagerSwing"
+			classpathref="run.classpath" fork="yes">
+			<arg line="--user sa --url ${db.url}" />
 		</java>
 	</target>
 
