@@ -47,3 +47,24 @@ GRANT USAGE ON DOMAIN INFORMATION_SCHEMA.CARDINAL_NUMBER TO PUBLIC
 GRANT USAGE ON DOMAIN INFORMATION_SCHEMA.CHARACTER_DATA TO PUBLIC
 GRANT USAGE ON DOMAIN INFORMATION_SCHEMA.SQL_IDENTIFIER TO PUBLIC
 GRANT DBA TO SA
+SET SCHEMA PUBLIC
+INSERT INTO STOCKITEM VALUES(default, 'Castle Brewery Peche', 7.1, 21, 'lambic furit peach')
+INSERT INTO STOCKITEM VALUES(default, 'Orval', 6.0, 30, 'Belgian Pale Ale')
+INSERT INTO STOCKITEM VALUES(default, 'Duvel', 8.0, 10, 'Flanders Red Ale')
+INSERT INTO STOCKITEM VALUES(default, 'Lost Abbey Cuvee De Tomme', 10.5, 18, 'American Wild Ale')
+INSERT INTO STOCKITEM VALUES(default, 'Firestone Walker Parabola', 17.0, 15, 'Russian Inperial Stout')
+INSERT INTO STOCKITEM VALUES(default, 'Wander Angus Anthem Pear', 6.0, 9, 'Fruit cider')
+INSERT INTO STOCKITEM VALUES(default, 'DogFish Head Theobroma', 14.1, 2, 'Chilli Beer')
+INSERT INTO STOCKITEM VALUES(default, 'Lost Abbey Devotion', 19.0, 1, 'Belgian Pale Ale')
+INSERT INTO STOCKITEM VALUES(default, 'Bacardi', 6.2, 14, '1-2 year aged charcoal filtered rum')
+INSERT INTO STOCKITEM VALUES(default, 'Absolut Vodka', 6.9, 21, 'Swedish Grain Vodka')
+INSERT INTO STOCKITEM VALUES(default, 'Hangar24 Orange Wheat', 5.5, 18, 'Wheat Fruit Beer')
+INSERT INTO STOCKITEM VALUES(default, 'Smoky', 7.4, 4, 'Peat-smoked whiskey')
+INSERT INTO STOCKITEM VALUES(default, 'Brooklyn Pilsner', 6.1, 8, 'Pilsner')
+INSERT INTO STOCKITEM VALUES(default, 'Russian River Pliny the Elder', 7.2, 2, 'Double India Pale Ale')
+INSERT INTO STOCKITEM VALUES(default, 'Irish Red', 6.5, 10, 'Irish Red')
+INSERT INTO STOCKITEM VALUES(default, 'Ace Pumpkin', 5.4, 9, 'Cider')
+INSERT INTO STOCKITEM VALUES(default, 'Golden Road Babrillo', 5.9, 11, 'Kolsch')
+INSERT INTO STOCKITEM VALUES(default, 'Avery Dugana', 6.2, 4, 'Double Indian Pale Ale')
+INSERT INTO STOCKITEM VALUES(default, 'Port Mongo', 5.6, 12, 'Double Indian Pale Ale')
+INSERT INTO STOCKITEM VALUES(default, 'Captain Morgan', 6.9, 20, 'Blended Spiced Carribean Rum')
