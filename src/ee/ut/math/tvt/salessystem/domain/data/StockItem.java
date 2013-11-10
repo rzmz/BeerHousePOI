@@ -10,7 +10,6 @@ import javax.persistence.*;
 public class StockItem implements Cloneable, DisplayableItem {
 	
 	@Id
-	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
