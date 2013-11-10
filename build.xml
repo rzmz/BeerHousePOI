@@ -170,6 +170,7 @@
 			fork="yes">
 			<arg line="-database.0 '${db.file}' -dbname.0 '${db.alias}'" />
 		</java>
+		<antcall target="resetdata"></antcall>
 	</target>
 
 	<target name="resetdata" description="WARNING: removes the old items completely.">
