@@ -78,7 +78,8 @@ public class ConfirmPaymentFrame extends JFrame {
 						JOptionPane.showMessageDialog(_frame, "Insufficient amount paid!");
 					} else {
 						_changeSum = amountPaid - _totalSum;
-						changeAmountLabel.setText(Double.toString(_changeSum));
+						double _roundedChange = Math.round(_changeSum * 100.0) / 100.0;
+						changeAmountLabel.setText(Double.toString(_roundedChange));
 					}
 				} catch (NumberFormatException ex) {
 					JOptionPane.showMessageDialog(_frame, "Please enter valid number");
