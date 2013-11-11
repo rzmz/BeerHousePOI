@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
+import ee.ut.math.tvt.salessystem.domain.data.Order;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.util.HibernateUtil;
@@ -40,6 +41,17 @@ public class HibernateDataService {
 			log.error("No database connection!");
 			JOptionPane.showMessageDialog(null, "Unable to connect to the database!");
 		}
+		return result;
+	}
+	
+	public List<Order> getOrders() {
+		List<Order> result = new ArrayList<Order>();
+		try {
+			result = session.createQuery("from ORDER").list();
+		} catch (Throwable ex) {
+			log.error("No database connection!");
+			JOptionPane.showMessageDialog(null, "Unable to connect to the database!");
+		}		
 		return result;
 	}
 

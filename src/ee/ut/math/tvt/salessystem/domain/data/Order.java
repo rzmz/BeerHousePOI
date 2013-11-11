@@ -1,21 +1,39 @@
 package ee.ut.math.tvt.salessystem.domain.data;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity(name = "ORDER")
 public class Order implements Cloneable, DisplayableItem {
 
 	static long currentId = 0;
 
+	@Id
+	@Column(name = "ID", nullable = false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+		
+	@OneToMany(mappedBy = "order")
 	private List<SoldItem> soldItems;
-	private Date dateAndTime;
+	
+	@Column(name = "SALE_TIME")
+	private Timestamp saleTime;
 
+	public Order() {		
+	}
+	
 	public Order(Long id, List<SoldItem> soldItems) {
 		this.id = id;
-		this.dateAndTime = new GregorianCalendar().getTime();
+		this.saleTime = (Timestamp) new GregorianCalendar().getTime();
 		this.soldItems = soldItems;
 	}
 
@@ -27,12 +45,12 @@ public class Order implements Cloneable, DisplayableItem {
 		this.soldItems = soldItems;
 	}
 
-	public Date getDateAndTime() {
-		return dateAndTime;
+	public Timestamp getDateAndTime() {
+		return saleTime;
 	}
 
-	public void setDateAndTime(Date dateAndTime) {
-		this.dateAndTime = dateAndTime;
+	public void setDateAndTime(Timestamp dateAndTime) {
+		this.saleTime = dateAndTime;
 	}
 
 	public void setId(Long id) {
@@ -60,13 +78,11 @@ public class Order implements Cloneable, DisplayableItem {
 
 	@Override
 	public Long getId() {
-		// TODO Auto-generated method stub
 		return this.id;
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

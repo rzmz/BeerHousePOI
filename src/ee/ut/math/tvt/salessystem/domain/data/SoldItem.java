@@ -14,8 +14,9 @@ public class SoldItem implements Cloneable, DisplayableItem {
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 	
-	@Column(name = "SALE_ID")
-	private Long _saleId;
+	@ManyToOne
+	@JoinColumn(name = "SALE_ID")
+	private Order order;
 	
 	@Column(name = "STOCKITEM_ID")
 	private Long _stockItemId;
@@ -29,13 +30,15 @@ public class SoldItem implements Cloneable, DisplayableItem {
     @Column(name = "ITEMPRICE")
     private double price;
 
+    public SoldItem() {    	
+    }
+    
     public SoldItem(StockItem stockItem, int quantity) {
         this._stockItemId = stockItem.getId();
         this.name = stockItem.getName();
         this.price = stockItem.getPrice();
         this.quantity = quantity;
     }
-    
     
     public Long getId() {
         return id;
@@ -71,6 +74,10 @@ public class SoldItem implements Cloneable, DisplayableItem {
 
     public double getSum() {
         return (double) quantity * price;
+    }
+    
+    public Order getOrder() {
+    	return this.order;
     }
     
 }
