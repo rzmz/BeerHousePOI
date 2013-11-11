@@ -170,19 +170,20 @@
 			fork="yes">
 			<arg line="-database.0 '${db.file}' -dbname.0 '${db.alias}'" />
 		</java>
-		<antcall target="resetdata"></antcall>
 	</target>
 
-	<target name="resetdata" description="WARNING: removes the old items completely.">
-	    
-	    <sql classpathref="run.classpath" driver="org.hsqldb.jdbcDriver" url="${db.url}" userid="sa" password="" autocommit="true" src="${data.dir}/additems.sql" />
-	        
+	<target name="resetdata" description="Resets sample data">
+
+		<sql classpathref="run.classpath" driver="org.hsqldb.jdbcDriver"
+			url="${db.url}" userid="sa" password="" autocommit="true"
+			src="${data.dir}/createsampledata.sql" />
 	</target>
-	
+
 	<target name="stopdb"
 		description="Stop the HSQLDB database before start in case it is already running">
 		<sql classpathref="run.classpath" driver="org.hsqldb.jdbcDriver"
-			url="${db.url}" userid="sa" password="" autocommit="true" failOnConnectionError="false">SHUTDOWN
+			url="${db.url}" userid="sa" password="" autocommit="true"
+			failOnConnectionError="false">SHUTDOWN
 		</sql>
 	</target>
 
