@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.domain.data.Order;
@@ -24,6 +25,7 @@ import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
 import ee.ut.math.tvt.salessystem.ui.panels.PurchaseItemPanel;
 import ee.ut.math.tvt.salessystem.ui.popups.ConfirmPaymentFrame;
+import ee.ut.math.tvt.salessystem.util.HibernateUtil;
 
 /**
  * Encapsulates everything that has to do with the purchase tab (the tab
@@ -187,7 +189,6 @@ public class PurchaseTab {
 
 		confirmPaymentFrame.getConfirmButton().addActionListener(
 				new ActionListener() {
-
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						log.debug("Got confirm from ConfirmPaymentFrame");
@@ -198,9 +199,13 @@ public class PurchaseTab {
 							domainController.submitCurrentPurchase(itemsInCart);
 
 							// todo: maybe not the best approach but we have to live with that for now
+							Session session = HibernateUtil.currentSession();
 							Order order = new Order(Order.getNextId(), itemsInCart);
 							model.getOrderTableModel().addOrder(order);
 							model.getOrderTableModel().fireTableDataChanged();							
+							session.beginTransaction();
+							session.persist(order);
+							session.getTransaction().commit();
 							endSale();
 							model.getCurrentPurchaseTableModel().clear();
 							confirmPaymentFrame.dispose();
