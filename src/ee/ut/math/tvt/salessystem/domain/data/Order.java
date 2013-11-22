@@ -33,7 +33,8 @@ public class Order implements Cloneable, DisplayableItem {
 	
 	public Order(Long id, List<SoldItem> soldItems) {
 		this.id = id;
-		this.saleTime = (Timestamp) new GregorianCalendar().getTime();
+//		this.saleTime = (Timestamp) new GregorianCalendar().getTime();
+		this.saleTime = (Timestamp) new java.sql.Timestamp(System.currentTimeMillis());
 		this.soldItems = soldItems;
 	}
 

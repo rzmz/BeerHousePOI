@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.NoSuchElementException;
 
-import javax.management.modelmbean.ModelMBean;
-
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 
