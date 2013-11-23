@@ -19,6 +19,7 @@ import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.domain.data.Order;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+import ee.ut.math.tvt.salessystem.domain.exception.OutOfStockException;
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.ui.model.PurchaseInfoTableModel;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
@@ -165,7 +166,7 @@ public class PurchaseTab {
 			}
 			model.getCurrentPurchaseTableModel().clear();
 
-		} catch (VerificationFailedException e1) {
+		} catch (VerificationFailedException | OutOfStockException e1) {
 			log.error(e1.getMessage());
 		}
 	}

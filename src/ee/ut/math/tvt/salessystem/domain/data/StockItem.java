@@ -2,6 +2,8 @@ package ee.ut.math.tvt.salessystem.domain.data;
 
 import javax.persistence.*;
 
+import ee.ut.math.tvt.salessystem.domain.exception.OutOfStockException;
+
 /**
  * Stock item. Corresponds to the Data Transfer Object design pattern.
  */
@@ -89,8 +91,13 @@ public class StockItem implements Cloneable, DisplayableItem {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setQuantity(int quantity) throws OutOfStockException {
+    	if(quantity >= 0){
+    		this.quantity = quantity;
+    	}
+    	else {
+    		throw new OutOfStockException("Not enough products left in stock");
+    	}
     }
     
 

@@ -10,6 +10,7 @@ import java.util.NoSuchElementException;
 import org.apache.log4j.Logger;
 
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
+import ee.ut.math.tvt.salessystem.domain.exception.OutOfStockException;
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
@@ -142,7 +143,11 @@ public class ConsoleUI {
 			int idx = Integer.parseInt(c[1]);
 			int amount = Integer.parseInt(c[2]);
 			StockItem item = getStockItemById(idx);
-			item.setQuantity(Math.min(amount, item.getQuantity()));
+			try {
+				item.setQuantity(Math.min(amount, item.getQuantity()));
+			} catch (OutOfStockException e) {
+				System.out.println("NEGATIVE STOCKITEM QUANITIY");
+			}
 			cart.add(item);
 		}
 	}

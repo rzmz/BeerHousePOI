@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 import org.apache.log4j.Logger;
 
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+import ee.ut.math.tvt.salessystem.domain.exception.OutOfStockException;
 
 /**
  * Stock item table model.
@@ -40,15 +41,19 @@ public class StockTableModel extends SalesSystemTableModel<StockItem> {
 	 */
 	public void addItem(final StockItem stockItem) {
 		try {
-			StockItem item = getItemById(stockItem.getId());
+			StockItem item = getItemByName(stockItem.getName());
+			
 			item.setQuantity(item.getQuantity() + stockItem.getQuantity());
 			log.debug("Found existing item " + stockItem.getName()
 					+ " increased quantity by " + stockItem.getQuantity());
+			
 		}
 		catch (NoSuchElementException e) {
 			rows.add(stockItem);
 			log.debug("Added " + stockItem.getName()
 					+ " quantity of " + stockItem.getQuantity());
+		} catch (OutOfStockException e) {
+			log.debug("StockItem quantity set to negative");
 		}
 		fireTableDataChanged();
 	}

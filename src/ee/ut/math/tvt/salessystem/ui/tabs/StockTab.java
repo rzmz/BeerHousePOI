@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+import ee.ut.math.tvt.salessystem.domain.exception.OutOfStockException;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.util.HibernateUtil;
 
@@ -126,7 +127,7 @@ public class StockTab {
 							.parseDouble(priceField.getText()) * 10) / 10);
 					item.setQuantity(Integer.parseInt(quantityField.getText()));
 					isError = false;
-				} catch (NumberFormatException ex) {
+				} catch (NumberFormatException | OutOfStockException ex) {
 					JOptionPane.showMessageDialog(null,
 							"Please insert valid data", "Error",
 							JOptionPane.WARNING_MESSAGE);

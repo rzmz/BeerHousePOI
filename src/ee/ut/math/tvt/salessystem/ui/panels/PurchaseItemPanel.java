@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+import ee.ut.math.tvt.salessystem.domain.exception.OutOfStockException;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 
 /**
@@ -167,9 +168,12 @@ public class PurchaseItemPanel extends JPanel {
                 quantity = 1;
             }
             if(stockItem.getQuantity() >= quantity){
-            	model.getCurrentPurchaseTableModel()
-                	.addItem(new SoldItem(stockItem, quantity));
-            	stockItem.setQuantity(stockItem.getQuantity()-quantity);
+            	
+            	try {
+            		model.getCurrentPurchaseTableModel()
+                		.addItem(new SoldItem(stockItem, quantity));
+					stockItem.setQuantity(stockItem.getQuantity()-quantity);
+				} catch (OutOfStockException e) {}
             } else {
             	Object[] options = {"OK"};
             	JOptionPane.showOptionDialog(null, "Not enough if item " + stockItem.getName() + "\nOnly " + stockItem.getQuantity() + " left!", "Warning",

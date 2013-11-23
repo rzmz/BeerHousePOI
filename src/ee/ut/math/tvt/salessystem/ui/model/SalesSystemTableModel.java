@@ -68,6 +68,7 @@ AbstractTableModel {
 		}
 		throw new NoSuchElementException();
 	}
+	
 
 	public String[] getItems(){
 		String[] items = new String[this.getRowCount()];
