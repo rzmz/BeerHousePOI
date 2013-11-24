@@ -1,21 +1,28 @@
 package ee.ut.math.tvt.salessystem.ui;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import org.apache.log4j.Logger;
+
 import com.jgoodies.looks.windows.WindowsLookAndFeel;
+
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.tabs.ClientTab;
 import ee.ut.math.tvt.salessystem.ui.tabs.HistoryTab;
 import ee.ut.math.tvt.salessystem.ui.tabs.PurchaseTab;
+import ee.ut.math.tvt.salessystem.ui.tabs.Refreshable;
 import ee.ut.math.tvt.salessystem.ui.tabs.StockTab;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import javax.swing.JFrame;
-import javax.swing.JTabbedPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import org.apache.log4j.Logger;
 
 /**
  * Graphical user interface of the sales system.
@@ -29,13 +36,10 @@ public class SalesSystemUI extends JFrame {
   // Warehouse model
   private SalesSystemModel model;
 
-  // Instances of tab classes
-  private PurchaseTab purchaseTab;
-  private HistoryTab historyTab;
-  private StockTab stockTab;
-  private ClientTab clientTab;
   private SalesDomainController domainController;
 
+  private Refreshable[] tabs = new Refreshable[4];
+  
   /**
    * Constructs sales system GUI.
    * @param domainController Sales domain controller.
@@ -45,11 +49,11 @@ public class SalesSystemUI extends JFrame {
     this.model = new SalesSystemModel(domainController);
     domainController.setModel(model);
 
-    // Create singleton instances of the tab classes
-    historyTab = new HistoryTab(model);
-    stockTab = new StockTab(model, domainController);
-    purchaseTab = new PurchaseTab(domainController, model, this);
-    clientTab = new ClientTab(model);
+    // Create singleton instances of the tab classes and add them to our new tabs list for later use
+    tabs[0] = new PurchaseTab(domainController, model, this);
+    tabs[1] = new StockTab(model, domainController);
+    tabs[2] = new HistoryTab(model);
+    tabs[3] = new ClientTab(model);
 
     setTitle("Sales system");
 
@@ -80,13 +84,21 @@ public class SalesSystemUI extends JFrame {
   }
 
   private void drawWidgets() {
-    JTabbedPane tabbedPane = new JTabbedPane();
+    final JTabbedPane tabbedPane = new JTabbedPane();
+    
+    tabbedPane.add("Point-of-sale", tabs[0].draw());
+    tabbedPane.add("Warehouse", tabs[1].draw());
+    tabbedPane.add("History", tabs[2].draw());
+    tabbedPane.add("Clients", tabs[3].draw());
 
-    tabbedPane.add("Point-of-sale", purchaseTab.draw());
-    tabbedPane.add("Warehouse", stockTab.draw());
-    tabbedPane.add("History", historyTab.draw());
-    tabbedPane.add("Clients", clientTab.draw());
-
+    // add change listener to the tabbed pane so we can call their refresh method every time a tab is selected
+    tabbedPane.addChangeListener(new ChangeListener() {
+        public void stateChanged(ChangeEvent e) {
+        	log.debug("Tab selected: " + tabbedPane.getSelectedIndex());
+        	tabs[tabbedPane.getSelectedIndex()].refresh(domainController);
+        }
+    });
+    
     getContentPane().add(tabbedPane);
   }
 

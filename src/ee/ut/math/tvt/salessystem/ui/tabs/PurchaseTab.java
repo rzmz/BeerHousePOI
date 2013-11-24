@@ -30,7 +30,7 @@ import ee.ut.math.tvt.salessystem.ui.windows.PayingWindow;
  * Encapsulates everything that has to do with the purchase tab (the tab
  * labelled "Point-of-sale" in the menu).
  */
-public class PurchaseTab {
+public class PurchaseTab implements Refreshable {
 
     private static final Logger log = Logger.getLogger(PurchaseTab.class);
 
@@ -286,5 +286,10 @@ public class PurchaseTab {
 
         return gc;
     }
+
+	@Override
+	public void refresh(SalesDomainController dc) {
+    	log.debug("Refresh called on PurchaseTab");
+	}
 
 }

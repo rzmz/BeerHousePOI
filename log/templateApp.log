@@ -1,43 +1,78 @@
-2013-11-24 22:32:17,881 [main] DEBUG - Strating SalesSystem with the Swing UI ..
-2013-11-24 22:32:18,143 [main] INFO - 5 items loaded from disk
-2013-11-24 22:32:18,149 [main] INFO - 1 clients loaded from disk
-2013-11-24 22:32:18,164 [main] INFO - 9 Sales loaded from disk
-2013-11-24 22:32:18,170 [main] WARN - [The JGoodies Windows Look and Feel - ? 2001-2006 JGoodies Karsten Lentzsch - com.jgoodies.looks.windows.WindowsLookAndFeel] not supported on this platform
-2013-11-24 22:32:18,807 [main] INFO - SalesSystem started
-2013-11-24 22:32:20,483 [AWT-EventQueue-0] INFO - New sale process started
-2013-11-24 22:32:20,483 [AWT-EventQueue-0] INFO - New purchase started
-2013-11-24 22:32:20,487 [AWT-EventQueue-0] INFO - 1 clients loaded from disk
-2013-11-24 22:32:21,772 [AWT-EventQueue-0] INFO - Client Toomas with ID=1 got selected.
-2013-11-24 22:32:23,622 [AWT-EventQueue-0] DEBUG - Added Layz kr?psud quantity of 1
-2013-11-24 22:32:26,064 [AWT-EventQueue-0] DEBUG - Added P?hklid quantity of 1
-2013-11-24 22:32:31,171 [AWT-EventQueue-0] INFO - Sale complete
-2013-11-24 22:32:31,171 [AWT-EventQueue-0] DEBUG - Contents of the current basket:
+2013-11-24 23:35:43,276 [main] DEBUG - Strating SalesSystem with the Swing UI ..
+2013-11-24 23:35:43,543 [main] INFO - 5 items loaded from disk
+2013-11-24 23:35:43,548 [main] INFO - 2 clients loaded from disk
+2013-11-24 23:35:43,562 [main] INFO - 12 Sales loaded from disk
+2013-11-24 23:35:43,568 [main] WARN - [The JGoodies Windows Look and Feel - © 2001-2006 JGoodies Karsten Lentzsch - com.jgoodies.looks.windows.WindowsLookAndFeel] not supported on this platform
+2013-11-24 23:35:44,904 [main] INFO - SalesSystem started
+2013-11-24 23:35:49,959 [AWT-EventQueue-0] INFO - New sale process started
+2013-11-24 23:35:49,959 [AWT-EventQueue-0] INFO - New purchase started
+2013-11-24 23:35:49,963 [AWT-EventQueue-0] INFO - 2 clients loaded from disk
+2013-11-24 23:35:51,428 [AWT-EventQueue-0] INFO - Client Toomas with ID=1 got selected.
+2013-11-24 23:35:54,909 [AWT-EventQueue-0] DEBUG - Added Pähklid quantity of 1
+2013-11-24 23:36:00,602 [AWT-EventQueue-0] INFO - Sale complete
+2013-11-24 23:36:00,602 [AWT-EventQueue-0] DEBUG - Contents of the current basket:
 Id	Name	Price	Quantity	Sum	
-null	Layz kr?psud	10.5	1	10.5	
-null	P?hklid	10.0	1	10.0	
+null	Pähklid	10.0	1	10.0	
 
-2013-11-24 22:32:37,797 [AWT-EventQueue-0] INFO - New sale process started
-2013-11-24 22:32:37,797 [AWT-EventQueue-0] INFO - New purchase started
-2013-11-24 22:32:37,801 [AWT-EventQueue-0] INFO - 1 clients loaded from disk
-2013-11-24 22:32:39,704 [AWT-EventQueue-0] INFO - Client Toomas with ID=1 got selected.
-2013-11-24 22:32:44,210 [AWT-EventQueue-0] DEBUG - Added Layz kr?psud quantity of 20
-2013-11-24 22:32:52,883 [AWT-EventQueue-0] INFO - Sale complete
-2013-11-24 22:32:52,884 [AWT-EventQueue-0] DEBUG - Contents of the current basket:
+2013-11-24 23:36:02,121 [AWT-EventQueue-0] DEBUG - Tab selected: 2
+2013-11-24 23:36:02,123 [AWT-EventQueue-0] INFO - 13 Sales loaded from disk
+2013-11-24 23:36:02,123 [AWT-EventQueue-0] DEBUG - Refresh called on HistoryTab
+2013-11-24 23:36:07,475 [AWT-EventQueue-0] DEBUG - Tab selected: 1
+2013-11-24 23:36:07,477 [AWT-EventQueue-0] INFO - 5 items loaded from disk
+2013-11-24 23:36:07,477 [AWT-EventQueue-0] DEBUG - Refresh called on StockTab
+2013-11-24 23:36:08,736 [AWT-EventQueue-0] DEBUG - Tab selected: 0
+2013-11-24 23:36:08,736 [AWT-EventQueue-0] DEBUG - Refresh called on PurchaseTab
+2013-11-24 23:36:13,888 [AWT-EventQueue-0] DEBUG - Tab selected: 1
+2013-11-24 23:36:13,890 [AWT-EventQueue-0] INFO - 5 items loaded from disk
+2013-11-24 23:36:13,890 [AWT-EventQueue-0] DEBUG - Refresh called on StockTab
+2013-11-24 23:36:23,984 [AWT-EventQueue-0] DEBUG -  === Comparing: Kala vs. Layz krõpsud
+2013-11-24 23:36:23,984 [AWT-EventQueue-0] DEBUG -  === Comparing: Kala vs. Õlle vorstikesed
+2013-11-24 23:36:23,984 [AWT-EventQueue-0] DEBUG -  === Comparing: Kala vs. Pähklid
+2013-11-24 23:36:23,984 [AWT-EventQueue-0] DEBUG -  === Comparing: Kala vs. Kõrsikud 
+2013-11-24 23:36:23,984 [AWT-EventQueue-0] DEBUG -  === Comparing: Kala vs. kohv
+2013-11-24 23:36:23,989 [AWT-EventQueue-0] INFO - Added new stockItem : Kala
+2013-11-24 23:36:27,255 [AWT-EventQueue-0] DEBUG - Tab selected: 0
+2013-11-24 23:36:27,255 [AWT-EventQueue-0] DEBUG - Refresh called on PurchaseTab
+2013-11-24 23:36:28,715 [AWT-EventQueue-0] INFO - New sale process started
+2013-11-24 23:36:28,715 [AWT-EventQueue-0] INFO - New purchase started
+2013-11-24 23:36:28,719 [AWT-EventQueue-0] INFO - 2 clients loaded from disk
+2013-11-24 23:36:29,993 [AWT-EventQueue-0] INFO - Client Toomas with ID=1 got selected.
+2013-11-24 23:36:34,972 [AWT-EventQueue-0] DEBUG - Tab selected: 1
+2013-11-24 23:36:34,973 [AWT-EventQueue-0] INFO - 6 items loaded from disk
+2013-11-24 23:36:34,973 [AWT-EventQueue-0] DEBUG - Refresh called on StockTab
+2013-11-24 23:36:36,221 [AWT-EventQueue-0] DEBUG - Tab selected: 0
+2013-11-24 23:36:36,221 [AWT-EventQueue-0] DEBUG - Refresh called on PurchaseTab
+2013-11-24 23:36:38,527 [AWT-EventQueue-0] DEBUG - Tab selected: 1
+2013-11-24 23:36:38,528 [AWT-EventQueue-0] INFO - 6 items loaded from disk
+2013-11-24 23:36:38,529 [AWT-EventQueue-0] DEBUG - Refresh called on StockTab
+2013-11-24 23:36:39,494 [AWT-EventQueue-0] DEBUG - Tab selected: 0
+2013-11-24 23:36:39,494 [AWT-EventQueue-0] DEBUG - Refresh called on PurchaseTab
+2013-11-24 23:36:41,259 [AWT-EventQueue-0] DEBUG - Added Kala quantity of 1
+2013-11-24 23:36:46,907 [AWT-EventQueue-0] INFO - Sale complete
+2013-11-24 23:36:46,907 [AWT-EventQueue-0] DEBUG - Contents of the current basket:
 Id	Name	Price	Quantity	Sum	
-null	Layz kr?psud	10.5	20	210.0	
+null	Kala	12.0	1	12.0	
 
-2013-11-24 22:33:05,967 [AWT-EventQueue-0] INFO - New sale process started
-2013-11-24 22:33:05,967 [AWT-EventQueue-0] INFO - New purchase started
-2013-11-24 22:33:05,970 [AWT-EventQueue-0] INFO - 1 clients loaded from disk
-2013-11-24 22:33:07,402 [AWT-EventQueue-0] INFO - Client Toomas with ID=1 got selected.
-2013-11-24 22:33:14,000 [AWT-EventQueue-0] INFO -  -- not enough in stock!
-2013-11-24 22:33:15,220 [AWT-EventQueue-0] DEBUG -   -- there was not enough cargo in warehouse to add item
-2013-11-24 22:33:17,915 [AWT-EventQueue-0] DEBUG - Added kohv quantity of 19
-2013-11-24 22:33:20,503 [AWT-EventQueue-0] INFO -  -- not enough in stock!
-2013-11-24 22:33:21,802 [AWT-EventQueue-0] DEBUG -   -- there was not enough cargo in warehouse to add item
-2013-11-24 22:33:28,692 [AWT-EventQueue-0] INFO - Sale complete
-2013-11-24 22:33:28,693 [AWT-EventQueue-0] DEBUG - Contents of the current basket:
+2013-11-24 23:36:48,640 [AWT-EventQueue-0] DEBUG - Tab selected: 2
+2013-11-24 23:36:48,642 [AWT-EventQueue-0] INFO - 14 Sales loaded from disk
+2013-11-24 23:36:48,642 [AWT-EventQueue-0] DEBUG - Refresh called on HistoryTab
+2013-11-24 23:36:51,846 [AWT-EventQueue-0] DEBUG - Tab selected: 3
+2013-11-24 23:36:51,848 [AWT-EventQueue-0] INFO - 2 clients loaded from disk
+2013-11-24 23:36:51,848 [AWT-EventQueue-0] DEBUG - Refresh called on ClientTab
+2013-11-24 23:36:53,737 [AWT-EventQueue-0] DEBUG - Tab selected: 0
+2013-11-24 23:36:53,737 [AWT-EventQueue-0] DEBUG - Refresh called on PurchaseTab
+2013-11-24 23:36:55,333 [AWT-EventQueue-0] INFO - New sale process started
+2013-11-24 23:36:55,333 [AWT-EventQueue-0] INFO - New purchase started
+2013-11-24 23:36:55,336 [AWT-EventQueue-0] INFO - 2 clients loaded from disk
+2013-11-24 23:36:57,690 [AWT-EventQueue-0] INFO - Client RASMUS with ID=2 got selected.
+2013-11-24 23:37:01,205 [AWT-EventQueue-0] INFO -  -- not enough in stock!
+2013-11-24 23:37:02,561 [AWT-EventQueue-0] DEBUG -   -- there was not enough cargo in warehouse to add item
+2013-11-24 23:37:08,136 [AWT-EventQueue-0] DEBUG - Added Kõrsikud  quantity of 1
+2013-11-24 23:37:14,245 [AWT-EventQueue-0] INFO - Sale complete
+2013-11-24 23:37:14,245 [AWT-EventQueue-0] DEBUG - Contents of the current basket:
 Id	Name	Price	Quantity	Sum	
-null	kohv	19.0	19	361.0	
+null	Kõrsikud 	7.0	1	7.0	
 
-2013-11-24 22:33:33,273 [AWT-EventQueue-0] INFO - SalesSystem closed
+2013-11-24 23:37:16,180 [AWT-EventQueue-0] DEBUG - Tab selected: 2
+2013-11-24 23:37:16,182 [AWT-EventQueue-0] INFO - 15 Sales loaded from disk
+2013-11-24 23:37:16,182 [AWT-EventQueue-0] DEBUG - Refresh called on HistoryTab
