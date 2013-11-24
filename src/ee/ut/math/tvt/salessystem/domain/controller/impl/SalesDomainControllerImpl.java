@@ -5,10 +5,13 @@ import ee.ut.math.tvt.salessystem.domain.data.Client;
 import ee.ut.math.tvt.salessystem.domain.data.Sale;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.util.HibernateUtil;
+
 import java.util.Date;
 import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -64,22 +67,14 @@ public class SalesDomainControllerImpl implements SalesDomainController {
         return (StockItem) session.get(StockItem.class, id);
     }
 
-
-    public void submitCurrentPurchase(List<SoldItem> soldItems, Client currentClient) {
-
-        // Begin transaction
-        Transaction tx = session.beginTransaction();
-
-        // construct new sale object
-        Sale sale = new Sale(soldItems);
-        //sale.setId(null);
-        sale.setSellingTime(new Date());
-
-        // set client who made the sale
-        sale.setClient(currentClient);
+	@Override
+	public void registerSale(Sale sale) throws VerificationFailedException {
+		
+		// Begin transaction
+		Transaction tx = session.beginTransaction();
 
         // Reduce quantities of stockItems in warehouse
-        for (SoldItem item : soldItems) {
+        for (SoldItem item : sale.getSoldItems()) {
             // Associate with current sale
             item.setSale(sale);
 
@@ -88,14 +83,12 @@ public class SalesDomainControllerImpl implements SalesDomainController {
             session.save(stockItem);
         }
 
-        session.save(sale);
-
-        // end transaction
-        tx.commit();
-
-        model.getPurchaseHistoryTableModel().addRow(sale);
-
-    }
+        sale.setSellingTime(new Date());
+        
+		session.save(sale);
+		
+		tx.commit();
+	}
 
 
     public void createStockItem(StockItem stockItem) {
@@ -117,8 +110,6 @@ public class SalesDomainControllerImpl implements SalesDomainController {
         // XXX - Start new purchase
         log.info("New purchase started");
     }
-
-
 
     public void setModel(SalesSystemModel model) {
         this.model = model;

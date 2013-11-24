@@ -1,12 +1,12 @@
 package ee.ut.math.tvt.salessystem.domain.controller;
 
+import java.util.List;
+
 import ee.ut.math.tvt.salessystem.domain.data.Client;
 import ee.ut.math.tvt.salessystem.domain.data.Sale;
-import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
-import java.util.List;
 
 /**
  * Sales domain controller is responsible for the domain specific business
@@ -46,15 +46,12 @@ public interface SalesDomainController {
     public void cancelCurrentPurchase();
 
     /**
-     * Commit business transaction - purchase of goods.
-     *
-     * @param goods
-     *            Goods that the buyer has chosen to buy.
+     * Commit business transaction
+     * @param sale - Sale object with cistomer and sold items
      * @throws VerificationFailedException
      */
-    public void submitCurrentPurchase(List<SoldItem> goods, Client client)
-            throws VerificationFailedException;
-
+    public void registerSale(Sale sale)
+    		throws VerificationFailedException;
 
     public void setModel(SalesSystemModel model);
 
