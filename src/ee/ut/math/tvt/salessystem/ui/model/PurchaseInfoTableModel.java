@@ -4,7 +4,10 @@ import ee.ut.math.tvt.salessystem.domain.data.Sale;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.domain.exception.SalesSystemException;
+
 import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -17,8 +20,11 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
 
 	private SalesSystemModel model;
 
+	private List<SoldItem> rows;
+	
     public PurchaseInfoTableModel() {
         super(new String[] { "Id", "Name", "Price", "Quantity", "Sum"});
+        this.rows = new ArrayList<SoldItem>();
     }
 
 	public PurchaseInfoTableModel(SalesSystemModel model) {
@@ -51,7 +57,7 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
 			buffer.append(headers[i] + "\t");
 		buffer.append("\n");
 
-		for (final SoldItem item : rows) {
+		for (final SoldItem item : getTableRows()) {
 			buffer.append(item.getId() + "\t");
 			buffer.append(item.getName() + "\t");
 			buffer.append(item.getPrice() + "\t");
@@ -65,7 +71,7 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
 
 
 	public SoldItem getForStockItem(long stockItemId) {
-	    for (SoldItem item : rows) {
+	    for (SoldItem item : getTableRows()) {
 	        if (item.getStockItem().getId().equals(stockItemId)) {
 	            return item;
 	        }
@@ -93,7 +99,7 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
 
         } else {
             validateQuantityInStock(soldItem.getStockItem(), soldItem.getQuantity());
-            rows.add(soldItem);
+            getTableRows().add(soldItem);
             log.debug("Added " + soldItem.getName()
                     + " quantity of " + soldItem.getQuantity());
         }
@@ -106,13 +112,11 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
      */
     public double getTotalPrice() {
         double price = 0.0;
-        for (SoldItem item : rows) {
+        for (SoldItem item : getTableRows()) {
             price += item.getSum();
         }
         return price;
     }
-
-
 
     private void validateQuantityInStock(StockItem item, int quantity)
         throws SalesSystemException {
@@ -137,5 +141,16 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
         this.rows = new ArrayList<SoldItem>(sale.getSoldItems());
         fireTableDataChanged();
     }
+
+	@Override
+	public List<SoldItem> getTableRows() {
+		return this.rows;
+	}
+
+	@Override
+	public void clear() {
+		this.rows = new ArrayList<SoldItem>();
+        fireTableDataChanged();
+	}
 
 }
